@@ -133,8 +133,8 @@ void TorusModel::Render(){
     
     glUniform1f(lavaShaderState_->utime_, timer);
     
-    mat_model_ = mat_model_ * Matrix4::makeYRotation(0.125);
-    mat_model_ = mat_model_ * Matrix4::makeXRotation(0.5);
+    mat_model_ = mat_model_ * Matrix4::makeYRotation(0.0625);
+    mat_model_ = mat_model_ * Matrix4::makeXRotation(0.25);
     // Feed Projection and Model View matrices to the shaders
     Matrix4 mat_vp = mat_projection_ * mat_view_ * mat_model_;
     
