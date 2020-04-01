@@ -10,7 +10,6 @@
 		5C7DFB3B24343A8300F279AD /* ComposeTexturesShaderFrag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5C7DFB3924343A8300F279AD /* ComposeTexturesShaderFrag.glsl */; };
 		5C7DFB3C24343A8300F279AD /* ComposeTexturesShaderVert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5C7DFB3A24343A8300F279AD /* ComposeTexturesShaderVert.glsl */; };
 		5C93939F24307BAB00DD4FB1 /* LavaEffectIOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C93939E24307BAB00DD4FB1 /* LavaEffectIOS.plist */; };
-		5C9393A22430863A00DD4FB1 /* CameraModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C9393A02430863A00DD4FB1 /* CameraModel.cpp */; };
 		5C9393A9243233FB00DD4FB1 /* TorusModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C9393A8243233FB00DD4FB1 /* TorusModel.cpp */; };
 		5C9393AF2432352A00DD4FB1 /* lavatile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C9393AD2432352A00DD4FB1 /* lavatile.jpg */; };
 		5C9393B02432352A00DD4FB1 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9393AE2432352A00DD4FB1 /* cloud.png */; };
@@ -42,8 +41,6 @@
 		5C7DFB3924343A8300F279AD /* ComposeTexturesShaderFrag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComposeTexturesShaderFrag.glsl; sourceTree = "<group>"; };
 		5C7DFB3A24343A8300F279AD /* ComposeTexturesShaderVert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComposeTexturesShaderVert.glsl; sourceTree = "<group>"; };
 		5C93939E24307BAB00DD4FB1 /* LavaEffectIOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LavaEffectIOS.plist; sourceTree = SOURCE_ROOT; };
-		5C9393A02430863A00DD4FB1 /* CameraModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraModel.cpp; path = UtahTeapot/CameraModel.cpp; sourceTree = "<group>"; };
-		5C9393A12430863A00DD4FB1 /* CameraModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraModel.h; path = UtahTeapot/CameraModel.h; sourceTree = "<group>"; };
 		5C9393A624308ED800DD4FB1 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiny_obj_loader.h; path = UtahTeapot/base/tinyobj/tiny_obj_loader.h; sourceTree = "<group>"; };
 		5C9393A7243233FB00DD4FB1 /* TorusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TorusModel.h; path = UtahTeapot/TorusModel.h; sourceTree = "<group>"; };
 		5C9393A8243233FB00DD4FB1 /* TorusModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TorusModel.cpp; path = UtahTeapot/TorusModel.cpp; sourceTree = "<group>"; };
@@ -172,8 +169,6 @@
 				5CBF59232433057D00F96075 /* Bloom.h */,
 				5CBF59252433057E00F96075 /* MultiPassTexture.cpp */,
 				5CBF59242433057E00F96075 /* MultiPassTexture.h */,
-				5C9393A02430863A00DD4FB1 /* CameraModel.cpp */,
-				5C9393A12430863A00DD4FB1 /* CameraModel.h */,
 				5CC378CE242F5C8B00140E91 /* LavaEffectMain.mm */,
 				5C9E4BA42418C1CA00BB9AE4 /* Textures */,
 				5CE2BC6A21E83FDE003B5B50 /* shaders */,
@@ -293,7 +288,6 @@
 				5CC378AF242F5B0700140E91 /* FileWrapper.mm in Sources */,
 				5CC378B0242F5B0700140E91 /* Camera.cpp in Sources */,
 				5CC378B2242F5B0700140E91 /* ViewController.mm in Sources */,
-				5C9393A22430863A00DD4FB1 /* CameraModel.cpp in Sources */,
 				5CC378B5242F5B0700140E91 /* glsupport.cpp in Sources */,
 				5CC378CF242F5C8B00140E91 /* LavaEffectMain.mm in Sources */,
 				5CC378B6242F5B0700140E91 /* perfMonitor.cpp in Sources */,

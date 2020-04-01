@@ -10,6 +10,8 @@ threejs中的webgl_lava例子实现了火山熔岩效果的渲染。
 ![lavaeffect_dynamic_smal](media/lavaeffect_dynamic_small.gif)
 
 ## 基本熔岩动态效果渲染
+
+
 实际上，在使用了熔岩纹理和动态纹理移位效果的shader渲染后，初始场景已经具备了熔岩的基本外观，但是在细节上，还有点欠缺，比如熔岩核心不够亮，外围黑斑处也没有出现足够暗的效果。
 ![basic_lavaeffect_2020_0330](media/basic_lavaeffect_2020_0330.jpg)
 
