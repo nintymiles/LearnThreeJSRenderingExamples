@@ -23,6 +23,5 @@ void main() {
     }
     
     fragColor = sum;
-//    fragColor = texture(tDiffuse, imageCoord);
     
 }

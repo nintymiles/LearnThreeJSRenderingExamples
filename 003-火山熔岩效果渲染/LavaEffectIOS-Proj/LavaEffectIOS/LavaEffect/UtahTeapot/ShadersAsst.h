@@ -11,10 +11,6 @@
 #include "matrix4.h"
 #include "FileWrapper.h"
 
-// Change the filter size in the BlurHorizontal.glsl and BlurVertical.glsl
-#define FILTER_SIZE 5
-#define PIXEL_INTERVAL 2.0
-
 struct ComposeTexturesShaderState{
     
     GlProgram program;
