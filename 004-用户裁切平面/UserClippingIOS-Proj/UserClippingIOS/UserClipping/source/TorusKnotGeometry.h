@@ -35,7 +35,17 @@ class TorusKnotGeometry{
     Cvec3 calculatePositionOnCurve(float u,int p,int q,float radius);
     
 public:
-    TorusKnotGeometry(float radius=1.0,float tube=0.4,int tubularSegments=64,int radialSegments=8,int p=2,int q=3);
+    /**
+     * class TorusKnotGeometry constructor
+     * @param radius 整个torus knot环形结几何体的半径
+     * @param tube   环形结轮廓管道半径
+     * @param tubularSegments 管道的数据段数
+     * @param radialSegments  环形几何体横截面的数据段数
+     * @param p 环形几何体围绕中心轴扭转的圈数
+     * @param q 环形几何体内部圆环的数量
+     *
+     */
+    TorusKnotGeometry(float radius=1.0,float tube=0.3,int tubularSegments=64,int radialSegments=8,int p=2,int q=3);
     ~TorusKnotGeometry(){};
     
     struct TKGVertexData{
