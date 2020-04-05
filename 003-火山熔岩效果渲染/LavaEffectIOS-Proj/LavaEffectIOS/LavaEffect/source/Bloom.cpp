@@ -179,6 +179,7 @@ void Bloom::RenderBloom(GLint BindTexture, GLint framebuffer, GLint ColorTexture
 {
     // Bind Framebuffer 2
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    glClear(GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ColorTexture, 0);
     glActiveTexture (GL_TEXTURE0);
@@ -192,6 +193,7 @@ void Bloom::RenderSpecFBO(GLint BindTexture, GLint framebuffer, GLint ColorTextu
 {
     // Bind Framebuffer 2
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 //    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ColorTexture, 0);
     textureQuad->ApplyShader(SimpleShader);
@@ -211,7 +213,7 @@ void Bloom::RenderObj(GLint BindTexture,GLint framebuffer, GLint ColorTexture, G
     
     // Bind Framebuffer 1
     glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ColorTexture,0);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, DepthBuf, 0);
