@@ -30,11 +30,11 @@ public:
     }
     ~RayCaster(){};
     
-    //从相机视角生成world frame中的screen-ray
-    //屏幕点先是被对应为near plane上的点，然后在转换为world coordinate
-    //也就是说先应用反转viewport矩阵，然后在应用unporjection矩阵，最后应用eye matrix（inverse view matrix）
-    //screen-ray需要标准化，以便于之后的计算
+    //借助相机数据生成world frame中的screen-ray
+    //屏幕点先是被对应为near plane上的点，然后再转换为world coordinate
+    //也就是说先进行反转viewport计算，然后在应用unporjection矩阵，最后应用eye matrix（inverse view matrix）
     void setFromCamera(Cvec3 screenPos,shared_ptr<PerspectiveCamera> camera){
+        //反转viewport计算，由于窗口坐标y轴的原点在窗口上方，所以需要反转符号
         float rayOriginX = (screenPos[0]/camera->view.width) * 2 - 1;
         float rayOriginY = -(screenPos[1]/camera->view.height) * 2 + 1;
         
@@ -43,8 +43,9 @@ public:
             Matrix4 projMat = camera->projMat;
             Cvec3 camPosition = vec3(eyeMat(0,3),eyeMat(1,3),eyeMat(2,3));
             Cvec4 screenPosWorld= (eyeMat*inv(projMat)) * vec4(rayOriginX,rayOriginY,1.0f,1.0f);
+            //反转投射矩阵应用后的坐标仍为同质坐标，需要执行除法以获得放射坐标
             screenPosWorld = screenPosWorld/screenPosWorld[3];
-            //screen-ray方向矢量需要标准化
+            //screen ray方向矢量需要标准化
             Cvec3 rayDi =normalize(vec3(screenPosWorld) -camPosition);
             
             ray = new Ray(camPosition,rayDi);

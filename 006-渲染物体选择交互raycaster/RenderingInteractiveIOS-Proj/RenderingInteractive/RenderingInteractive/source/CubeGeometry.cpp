@@ -28,7 +28,7 @@ CubeGeometry::CubeVertexData makeCubeVertexData(const CubeGeometry& cb){
     return vertexData;
 }
 
-// this function calculates the current position on the torus curve
+//本函数生成立方体每个面上的顶点和索引数据
 void CubeGeometry::buildPlane(int idx1,int idx2,int idx3,int udir,int vdir,float width,float height,float depth,int gridX,int gridY,int materialIndex){
     float segmentWidth = width / gridX;
     float segmentHeight = height / gridY;

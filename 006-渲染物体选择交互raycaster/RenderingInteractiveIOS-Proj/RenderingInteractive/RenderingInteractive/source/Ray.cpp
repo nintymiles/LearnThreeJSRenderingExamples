@@ -40,20 +40,16 @@ vec3 Ray::at(float t){
     return origin+direction*t;
 }
 
-//木星之类的大球体选择不精确，是因为形成木星球体的方式为对标准球形几何体的顶点进行伸缩
-//故而当从几何体顶点确定球体直径时，所获得的只是标准球体的直径
-//要解决这个问题，需要在planetmodel中加入行星的半径信息，可计算BV（sphere）时使用半径信息计算真实行星半径
+
 vector<vec3> Ray::intersectSphere(Sphere* sphere){
-    //IntersectionData iData;
     
     vec3 v1;
     //两个矢量相减产生新矢量v1，球体原点和射线原点的矢量
     v1 = sphere->center - origin;
     
-    //使用标准矢量和非标准矢量的点积来计算余弦边，貌似不太准确。但在这里计算的值一摸一样
+    //使用标准矢量和非标准矢量的点积来计算余弦边。
     float tca = dot(v1,direction);
-    //float ccss = glm::dot(glm::normalize(v1),direction);
-    //float tca = sqrt(glm::dot(v1,v1)) * glm::dot(direction,glm::normalize(v1));
+    
     //d2是正弦边的平方，v1平方构成从相机位置和球体中心为最长边平方，tca2为余弦边的平方，
     float d2 = dot(v1,v1) - tca * tca;
     //当d2和radius2刚好相等时，屏幕射线为球体切线，d2>raidus2时，屏幕射线和球体不相交
@@ -88,8 +84,8 @@ vector<vec3> Ray::intersectBox(Box* box){
     float tmin, tmax, tymin, tymax, tzmin, tzmax;
     
     float invdirx = 1 / direction[0],
-        invdiry = 1 / direction[1],
-        invdirz = 1 / direction[2];
+    invdiry = 1 / direction[1],
+    invdirz = 1 / direction[2];
     
     if(invdirx >= 0){
         tmin = (box->min[0] - origin[0]) * invdirx;
@@ -105,7 +101,6 @@ vector<vec3> Ray::intersectBox(Box* box){
     } else {
         tymin = (box->max[1] - origin[1]) * invdiry;
         tymax = (box->min[1] - origin[1]) * invdiry;
-        
     }
     
     if ( ( tmin > tymax ) || ( tymin > tmax ) ) return {};
@@ -114,29 +109,24 @@ vector<vec3> Ray::intersectBox(Box* box){
     // (result of 0 * Infinity). x !== x returns true if x is NaN
     if ( tymin > tmin || tmin != tmin ) tmin = tymin;
     
-        if ( tymax < tmax || tmax != tmax ) tmax = tymax;
-            
-            if ( invdirz >= 0 ) {
-                
-                tzmin = ( box->min[2] - origin[2] ) * invdirz;
-                tzmax = ( box->max[2] - origin[2] ) * invdirz;
-                
-            } else {
-                
-                tzmin = ( box->max[2] - origin[2] ) * invdirz;
-                tzmax = ( box->min[2] - origin[2] ) * invdirz;
-                
-            }
+    if ( tymax < tmax || tmax != tmax ) tmax = tymax;
+    
+    if ( invdirz >= 0 ) {
+        tzmin = ( box->min[2] - origin[2] ) * invdirz;
+        tzmax = ( box->max[2] - origin[2] ) * invdirz;
+    } else {
+        tzmin = ( box->max[2] - origin[2] ) * invdirz;
+        tzmax = ( box->min[2] - origin[2] ) * invdirz;
+    }
     
     if ( ( tmin > tzmax ) || ( tzmin > tmax ) ) return {};
     
     if ( tzmin > tmin || tmin != tmin ) tmin = tzmin;
-        
-        if ( tzmax < tmax || tmax != tmax ) tmax = tzmax;
-            
-            //return point closest to the ray (positive side)
-            
-            if ( tmax < 0 ) return {};
+    
+    if ( tzmax < tmax || tmax != tmax ) tmax = tzmax;
+    
+    //return point closest to the ray (positive side)
+    if ( tmax < 0 ) return {};
     
     return {this->at( tmin >= 0 ? tmin : tmax)};
 }
@@ -150,7 +140,7 @@ vector<vec3> Ray::intersectTriangle(vec3 a,vec3 b,vec3 c,bool backfaceCulling){
     edge1 = b-a;
     edge2 = c-a;
     normal = cross(edge1, edge2);
-        
+    
     //cross prodcut可以十分方便地应用于determiant的计算
     // Solve Q + t*D = b1*E1 + b2*E2 (Q = kDiff, D = ray direction,
     // E1 = kEdge1, E2 = kEdge2, N = Cross(E1,E2)) by
@@ -159,7 +149,7 @@ vector<vec3> Ray::intersectTriangle(vec3 a,vec3 b,vec3 c,bool backfaceCulling){
     //   |Dot(D,N)|*t = -sign(Dot(D,N))*Dot(Q,N) //确定符号，是因为要计算位于正反面，和korea textbook一致
     float DdN = dot(direction,normal);
     int sign;
-        
+    
     if (DdN > 0){
         if (backfaceCulling) return {};
         sign = 1;
@@ -169,40 +159,40 @@ vector<vec3> Ray::intersectTriangle(vec3 a,vec3 b,vec3 c,bool backfaceCulling){
     } else {
         return {};
     }
-        
+    
     //此处Q指向相机原点，于korea text方向相反，故而后面需要负值。
     diff = origin-a;
     
     float DdQxE2 = sign * dot(direction,cross(diff, edge2));
-        
+    
     // b1 < 0, no intersection
     if ( DdQxE2 < 0 ) {
         return {};
     }
-        
+    
     float DdE1xQ = sign * dot(direction,cross(edge1,diff));
-        
+    
     // b2 < 0, no intersection
     if ( DdE1xQ < 0 ) {
         return {};
     }
-        
+    
     // b1+b2 > 1, no intersection
     if ( DdQxE2 + DdE1xQ > DdN ) {
         return {};
     }
-        
+    
     // Line intersects triangle, check if ray does.
     float QdN = - sign * dot(diff,normal);
-        
+    
     // t<0,则位于射线的反方向上？
     // t < 0, no intersection
     if ( QdN < 0 ) {
         return {};
     }
-        
+    
     // t值确定后，就可以确定相交点。
     // Ray intersects triangle.
     return {this->at(QdN/DdN)};
-
+    
 }
