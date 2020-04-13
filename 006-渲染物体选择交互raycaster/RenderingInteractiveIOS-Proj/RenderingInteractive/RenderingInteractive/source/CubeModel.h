@@ -81,8 +81,7 @@ public:
     virtual ~CubeModel();
     void Init();
     void Render();
-    void RenderMultiInsances();
-    void Update(double time);
+    void Update();
     void UpdateMatrixWorld();
     void Unload();
     void setPerspectiveCamera(std::shared_ptr<PerspectiveCamera> camera);

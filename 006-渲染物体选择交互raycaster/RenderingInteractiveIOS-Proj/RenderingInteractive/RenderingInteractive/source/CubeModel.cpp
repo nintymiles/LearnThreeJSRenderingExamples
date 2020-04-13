@@ -110,7 +110,7 @@ void CubeModel::Unload() {
     
 }
 
-void CubeModel::Update(double time) {
+void CubeModel::Update() {
     mat_projection_ = perspectiveCamera_->projMat;
     
 }
@@ -130,22 +130,9 @@ void CubeModel::UpdateMatrixWorld() {
 void CubeModel::setPerspectiveCamera(std::shared_ptr<PerspectiveCamera> camera){
     this->perspectiveCamera_ = camera;
     
-    Update(0);
+    Update();
 }
 
-void CubeModel::RenderMultiInsances(){
-        
-//    for (int i = 0; i < mInstancePos.size(); i ++ ) {
-//        
-//        mat_model_ = Matrix4::makeTranslation(mInstancePos[i]);
-//        mat_model_ = mat_model_ * Matrix4::makeXRotation(mInstanceOrientation[i][0]) * Matrix4::makeYRotation(mInstanceOrientation[i][0]) * Matrix4::makeZRotation(mInstanceOrientation[i][0]);
-//        
-//        mat_model_ = mat_model_ * Matrix4::makeTranslation(Cvec3(0,0,zTranslationDistance)) * Matrix4::makeYRotation(-250);
-//            
-//            Render();
-//        }
-//    Render();
-}
 
 void CubeModel::Render(){
     glDisable(GL_CULL_FACE);
