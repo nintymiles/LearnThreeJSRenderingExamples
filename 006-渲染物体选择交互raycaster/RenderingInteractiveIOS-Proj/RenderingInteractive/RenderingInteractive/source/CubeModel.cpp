@@ -227,12 +227,7 @@ vector<IntersectionData> CubeModel::rayCast(RayCaster *rayCaster){
     Box* boundingBox;
     boundingBox = new Box();
     boundingBox->setFromPoints(geometry_->points);
-    //    if(this->boundingBox == NULL){
-//            this->boundingBox = new Box();
-//            this->boundingBox->setFromPoints(points);
-    //    }
-//    vector<Cvec3> intersectData = rayObj->intersectBox(boundingBox);
-//    if (intersectData.size()==0) return {};
+
     
     intersectPoints = rayObj->intersectBox(boundingBox);
     if (intersectPoints.size()==0) return {};
@@ -269,11 +264,6 @@ vector<IntersectionData> CubeModel::rayCast(RayCaster *rayCaster){
         
     }
 
-//    IntersectionData idata={};//intersectPoints[0];
-//    //    IntersectionData idata={{}};
-//    idata.intersectionPointWorld = intersectData[0];
-//    idata.object = this;
-//
     return {};
 }
 
