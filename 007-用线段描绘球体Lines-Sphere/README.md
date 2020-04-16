@@ -2,7 +2,7 @@
 Three.js中的webgl_lines_sphere例子使用线段渲染出3D球体，效果十分有趣。
 
 ## 实现过程
-渲染过程比较加单，先构造出单位球体上（unit sphere）的点，随后将点再对应半径上随机伸缩坐标，每个半径上相邻的这两个点构成线段，为线段指定色彩后即可渲染出基本的lines sphere（线段球体）。
+渲染过程比较简单，先构造出单位球体上（unit sphere）的点，随后将点再对应半径上随机伸缩坐标，每个半径上相邻的这两个点构成线段，为线段指定色彩后即可渲染出基本的lines sphere（线段球体）。
 
 这里，我们模仿webgl_lines_sphere例子，使用C++和OpenGL ES 3.0获得了如下的渲染效果，[iOS版本实现源码](https://github.com/nintymiles/LearnThreeJSRenderingExamples)可以从github上获取。
 
