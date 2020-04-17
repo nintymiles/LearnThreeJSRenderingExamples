@@ -42,7 +42,7 @@ vector<Cvec3f> createLinesSphereGeometry(float r){
 }
 ```
 
-## 球体的多重绘制和移动
+## 球体的多重绘制和运动
 webgl_lines_sphere例子中进行了多重（9层）球体绘制，并且让内层的球体随时间缩放变换，同时进行逆时针旋转，外侧的球体则只进行顺时针旋转。还有，内外侧球体的色彩和透明度也进行对应的设置。整体的展示效果比较有趣。部分代码如下：
 
 ```cpp
@@ -92,8 +92,6 @@ for(size_t i=0;i<parameters.size();i++){
 delta+=0.1;
 
 for(int i=0;i<lsModels.size();i++){
-//        time_t timeInMill = time(NULL);
-//        double time = (double)timeInMill/10;
 
     shared_ptr<LinesSphereModel> lsModel = lsModels[i];
 
