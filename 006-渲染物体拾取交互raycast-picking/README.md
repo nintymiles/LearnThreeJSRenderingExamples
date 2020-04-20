@@ -384,6 +384,68 @@ vector<vec3> Ray::intersectTriangle(vec3 a,vec3 b,vec3 c,bool backfaceCulling){
 }
 ```
 
+针对每个被渲染物体，使用上面3个ray-geometry方法执行检测的代码逻辑如下：
+
+```cpp
+    ...
+    // 先进行了ray-sphere相交检测（在世界坐标中进行）
+    Ray *ray = rayCaster->ray;
+    intersectPoints = ray->intersectSphere(sphere);
+    if (intersectPoints.size()==0) return {};
+
+    //计算object matrix的反转，用于将射线转换为object coordinate
+    Matrix4 inverseMatrix = inv(matrixWorld);
+    Ray *rayObj = new Ray();
+    rayObj->origin = ray->origin;
+    rayObj->direction = ray->direction;
+	  //将屏幕射线转化为物体坐标
+    rayObj->applyMatrix4(inverseMatrix);
+
+    Box* boundingBox;
+    boundingBox = new Box();
+    boundingBox->setFromPoints(geometry_->points);
+
+    // ray-box检测，相对ray-sphere更准确一些，用于二次检测
+    intersectPoints = rayObj->intersectBox(boundingBox);
+    if (intersectPoints.size()==0) return {};
+    
+    intersectPoints.clear();
+    
+    // 如果两次保守型检测仍然不能排除相交，则执行开销大的ray-triangle检测，用于获得精确的结果
+    for (int i = 0, il = geometry_->iboLen; i < il; i += 3 ) {
+        
+        Cvec3 a = geometry_->points[geometry_->indice[i]];
+        Cvec3 b = geometry_->points[geometry_->indice[i+1]];
+        Cvec3 c = geometry_->points[geometry_->indice[i+2]];
+        
+        vector<Cvec3> intersectData =  rayObj->intersectTriangle(a, b, c, true);
+        
+        for(auto point:intersectData){
+            intersectPoints.push_back(point);
+        }
+        
+    }
+    
+    
+    if (intersectPoints.size()==0) return {};
+    // 生成ray-geometry相交数据
+    if (intersectPoints.size()>0){
+        vector<IntersectionData> idata;
+        
+        for(auto point:intersectPoints){
+            IntersectionData interObj={};
+            interObj.intersectionPointWorld = Cvec3(matrixWorld * Cvec4(point,1.0));
+            interObj.object = this;
+            interObj.distance = norm(point-rayCaster->ray->origin);
+            
+            idata.push_back(interObj);
+        }
+        
+        return idata;
+        
+    }
+```
+
 > real-time rendering书中对于具体的射线几何体相交实现算法有十分详细的讲解。
 
 每条屏幕射线可能和场景中的多个物体相交。在本例中，我们只选择最近相交的物体给予展示。
